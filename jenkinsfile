@@ -12,17 +12,11 @@ pipeline {
             steps {
                 sh '''
                 cd backend
-                mvn clean package -DskipTests
+                cp /Dockerfile .
+                docker build -t backend-app .
                 '''
             }   
          }      
-        stage('Docker Build - Backend') {
-            steps {
-                sh '''
-                docker build -t backend-app .
-                '''
-            }
-         }  
         stage('Deploy Backend') {
             steps {
                 sh '''
