@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull') {
+            steps {
+                git branch: 'main', url: 'https://github.com/shubhamkalsait/EasyCRUD.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh '''
+                cd backend
+                mvn clean package -DskipTests
+                '''
+            }   
+         }      
+        stage('Docker Build - Backend') {
+            steps {
+                sh '''
+                docker build -t backend-app .
+                '''
+            }
+         }  
+        stage('Deploy Backend') {
+            steps {
+                sh '''
+                docker stop backend || true
+                docker rm backend || true
+                docker run -d -p 8080:8080 --name backend backend-app
+                '''
+            }
+         }
