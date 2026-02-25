@@ -19,7 +19,7 @@ pipeline {
          }      
         stage('Deploy Backend') {
             steps {
-                sh 'docker run -d -p 8080:8080 --name backend backend-app'
+                sh 'docker run -d -p 8081:8081 --name backend backend-app'
             }
          }
      }
