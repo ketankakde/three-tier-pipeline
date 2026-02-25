@@ -13,7 +13,6 @@ pipeline {
                 sh '''
                 cd backend
                 cp /Dockerfile .
-                export DOCKER_BUILDKIT=1
                 docker build -t backend-app .
                 '''
             }   
